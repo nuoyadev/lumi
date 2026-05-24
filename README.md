@@ -1,229 +1,205 @@
 <div align="center">
 
-<!-- TYPING SVG -->
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=32&pause=1000&color=A855F7&center=true&vCenter=true&width=600&lines=ghostpilot;Your+AI+Social+Media+Autopilot;Post+while+you+sleep+%F0%9F%A4%96)](https://github.com/nuoyadev/ghostpilot)
+![Lumi Banner](banner.png)
 
-[![LICENSE](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
+<img src="mascot.png" alt="Lumi Mascot" width="120" />
+
+# Lumi — AI Social Media Autopilot
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue?style=flat-square&logo=python)](https://python.org)
 [![Playwright](https://img.shields.io/badge/playwright-latest-green?style=flat-square&logo=playwright)](https://playwright.dev)
 [![LLM](https://img.shields.io/badge/LLM-Claude%20%7C%20GPT--4-orange?style=flat-square)](https://anthropic.com)
 [![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)]()
-[![Zero API Cost](https://img.shields.io/badge/Twitter%20API-$0-success?style=flat-square)]()
+[![Zero API Cost](https://img.shields.io/badge/Twitter%20API-%240-success?style=flat-square)]()
 
 > **Post on Twitter/X & Instagram automatically. No API fees. No manual work. Just results.**
->
-> Built by [@nuoyadev](https://github.com/nuoyadev) — Because building is more important than posting about building.
->
-> </div>
+> >
+> >> Built by [@nuoyadev](https://github.com/nuoyadev) — Because building is more important than posting about building.
+> >>
+> >> </div>
 
 ---
 
-## 🧠 What is ghostpilot?
+## 🦈 What is Lumi?
 
-**ghostpilot** is an AI-powered social media autopilot that runs silently in the background and posts for you — every single day — while you focus on what actually matters: building.
+**Lumi** is an AI-powered social media autopilot that runs silently in the background and posts for you — every single day — while you focus on what actually matters: building.
 
 It uses **LLMs (Claude / GPT-4)** to generate platform-native content from your ideas, projects, and GitHub activity, then uses **Playwright** to post directly via the browser — completely **free**, no API keys required for posting.
 
 ```
-Your ideas / GitHub activity
-        ↓
-  LLM generates content
-  (Twitter-optimized + IG-optimized)
-        ↓
-  Playwright opens browser
-  → posts on Twitter/X
-  → posts on Instagram
-        ↓
-  GitHub Actions runs this every morning at 9am
-        ↓
-  You wake up. Already posted. ✅
+Your projects → Lumi AI → Twitter/X post ✓
+                        → Instagram caption ✓
+                        → Scheduled & done ✓
 ```
 
 ---
 
-## 💀 The problem it kills
+## ✨ Features
 
-| Without ghostpilot | With ghostpilot |
+| Feature | Description |
 |---|---|
-| ❌ 0 posts because "no time" | ✅ Daily posts on autopilot |
-| ❌ Twitter API costs $100+/mo | ✅ $0 — browser-based posting |
-| ❌ Content feels generic | ✅ LLM-generated, platform-native tone |
-| ❌ Posting manually is a job | ✅ Fully automated, runs on GitHub Actions |
-| ❌ Your projects go unnoticed | ✅ Every commit, build & idea becomes content |
+| 🤖 **AI Content Generation** | Claude or GPT-4 generates engaging posts from your GitHub activity |
+| 🌐 **Browser-Based Posting** | Playwright posts via browser — zero API cost for Twitter/Instagram |
+| ⏰ **Smart Scheduling** | GitHub Actions runs on cron — fully automated, 24/7 |
+| 🎯 **Platform-Native** | Different tone & format for Twitter vs Instagram |
+| 🔄 **Multi-Platform** | Twitter/X + Instagram in one pipeline |
+| 🛡️ **Safe & Private** | No third-party services, runs entirely in your GitHub repo |
 
 ---
 
-## ⚡ Features
+## 🏗️ Architecture
 
-- 🤖 **AI Content Generator** — Claude or GPT-4 generates tweets and Instagram captions from your topics, projects, or a simple prompt
-- - 🎭 **Playwright Poster** — Posts directly via a real browser session. No official API. No cost.
-  - - 🐦 **Twitter/X Support** — Full tweet posting with thread support (coming soon)
-    - - 📸 **Instagram Support** — Caption-based posts with optional image
-      - - ⏰ **GitHub Actions Scheduler** — Runs every morning via cron, zero infrastructure needed
-        - - 🧠 **GitHub-Aware Mode** — Detects your latest commits and auto-generates content about what you built
-          - - 📋 **Content Queue** — Pre-load ideas in a JSON file, ghostpilot picks one daily
-            - - 🌍 **Multi-platform tone** — Automatically adapts tone: punchy for Twitter, storytelling for Instagram
-             
-              - ---
+```
+┌─────────────────────────────────────────────────────────┐
+│                    LUMI PIPELINE                        │
+│                                                         │
+│  GitHub Actions (cron)                                  │
+│         ↓                                               │
+│  content_generator.py                                   │
+│    ├── Fetch GitHub activity / topic ideas              │
+│    ├── Call Claude API → generate tweet draft           │
+│    └── Call Claude API → generate Instagram caption     │
+│         ↓                                               │
+│  poster/                                                │
+│    ├── twitter_poster.py (Playwright)                   │
+│    │     → Login → Compose → Post                       │
+│    └── instagram_poster.py (Playwright)                 │
+│          → Login → New post → Caption → Publish         │
+│         ↓                                               │
+│  scheduler.py                                           │
+│    └── Orchestrates timing, retries, logging            │
+└─────────────────────────────────────────────────────────┘
+```
 
-              ## 🗂️ Project Structure
+**Stack:**
+- **Python 3.10+** — core language
+- - **Playwright (async)** — browser automation for posting
+  - - **Claude API / OpenAI API** — LLM content generation
+    - - **GitHub Actions** — free scheduling & CI/CD
+      - - **YAML config** — per-platform tone and style settings
+       
+        - ---
 
-              ```
-              ghostpilot/
-              ├── 📁 src/
-              │   ├── generator.py        # LLM content generation (Claude / GPT-4)
-              │   ├── poster_twitter.py   # Playwright Twitter/X poster
-              │   ├── poster_instagram.py # Playwright Instagram poster
-              │   ├── github_scanner.py   # Scans your recent commits for content ideas
-              │   └── scheduler.py        # Main orchestrator
-              ├── 📁 content/
-              │   └── queue.json          # Your content idea queue
-              ├── 📁 .github/
-              │   └── workflows/
-              │       └── daily_post.yml  # GitHub Actions cron (runs daily at 9am)
-              ├── config.example.py       # Config template (copy to config.py)
-              ├── requirements.txt
-              ├── .gitignore
-              └── README.md
-              ```
+        ## 🚀 Quick Start
 
-              ---
+        ### 1. Clone the repo
 
-              ## 🚀 Quick Start
+        ```bash
+        git clone https://github.com/nuoyadev/lumi.git
+        cd lumi
+        ```
 
-              ### 1. Clone the repo
+        ### 2. Install dependencies
 
-              ```bash
-              git clone https://github.com/nuoyadev/ghostpilot.git
-              cd ghostpilot
-              ```
+        ```bash
+        pip install -r requirements.txt
+        playwright install chromium
+        ```
 
-              ### 2. Install dependencies
+        ### 3. Configure environment
 
-              ```bash
-              pip install -r requirements.txt
-              playwright install chromium
-              ```
+        ```bash
+        cp .env.example .env
+        # Edit .env with your credentials
+        ```
 
-              ### 3. Configure
+        ```env
+        # LLM (pick one)
+        ANTHROPIC_API_KEY=sk-ant-...
+        OPENAI_API_KEY=sk-...
 
-              ```bash
-              cp config.example.py config.py
-              ```
+        # Social accounts (stored securely as GitHub Secrets)
+        TWITTER_EMAIL=your@email.com
+        TWITTER_PASSWORD=yourpassword
+        TWITTER_USERNAME=@yourhandle
 
-              Edit `config.py` with your settings:
+        INSTAGRAM_EMAIL=your@email.com
+        INSTAGRAM_PASSWORD=yourpassword
+        ```
 
-              ```python
-              # config.py
-              LLM_PROVIDER = "claude"        # "claude" or "openai"
-              LLM_API_KEY = "your-api-key"
+        ### 4. Run locally
 
-              TWITTER_USERNAME = "your_username"
-              TWITTER_PASSWORD = "your_password"
+        ```bash
+        python lumi.py --platform twitter --dry-run
+        python lumi.py --platform instagram --dry-run
+        python lumi.py --all  # post to all platforms
+        ```
 
-              INSTAGRAM_USERNAME = "your_username"
-              INSTAGRAM_PASSWORD = "your_password"
+        ### 5. Deploy with GitHub Actions
 
-              GITHUB_USERNAME = "nuoyadev"   # for GitHub-aware mode
-              POST_TIME = "09:00"            # daily post time (UTC)
-              ```
+        Add your secrets to the repo (`Settings → Secrets`) and the workflow runs automatically:
 
-              ### 4. Add your content ideas
+        ```yaml
+        # .github/workflows/lumi.yml (auto-generated)
+        on:
+          schedule:
+            - cron: '0 9 * * *'  # Every day at 9am UTC
+        ```
 
-              Edit `content/queue.json`:
+        ---
 
-              ```json
-              [
-                {
-                  "topic": "Just shipped a new feature on cerocrates — MCP-native agent routing",
-                  "platforms": ["twitter", "instagram"],
-                  "tone": "technical"
-                },
-                {
-                  "topic": "Why most AI agents fail silently and how to fix it",
-                  "platforms": ["twitter"],
-                  "tone": "opinion"
-                }
-              ]
-              ```
+        ## 📁 Project Structure
 
-              ### 5. Run manually (test)
+        ```
+        lumi/
+        ├── lumi.py                    # Main entry point
+        ├── content_generator.py       # LLM content generation
+        ├── scheduler.py               # Orchestration & timing
+        ├── poster/
+        │   ├── twitter_poster.py      # Twitter/X Playwright bot
+        │   └── instagram_poster.py    # Instagram Playwright bot
+        ├── config/
+        │   ├── platforms.yaml         # Per-platform settings
+        │   └── prompts.yaml           # LLM prompt templates
+        ├── .github/
+        │   └── workflows/
+        │       └── lumi.yml           # GitHub Actions workflow
+        ├── CLAUDE.md                  # AI instructions for Cursor
+        ├── requirements.txt
+        ├── .env.example
+        └── README.md
+        ```
 
-              ```bash
-              python src/scheduler.py --dry-run     # preview generated content
-              python src/scheduler.py --post-now    # post immediately
-              ```
+        ---
 
-              ### 6. Deploy on GitHub Actions
+        ## 🗺️ Roadmap
 
-              Push to GitHub. The `.github/workflows/daily_post.yml` cron job will run automatically every morning.
+        - [x] Project setup & architecture
+        - [ ] - [x] CLAUDE.md instructions for AI-assisted development
+        - [ ] - [ ] `content_generator.py` — LLM integration (Claude + GPT-4)
+        - [ ] - [ ] `twitter_poster.py` — Playwright Twitter automation
+        - [ ] - [ ] `instagram_poster.py` — Playwright Instagram automation
+        - [ ] - [ ] `scheduler.py` — orchestration logic
+        - [ ] - [ ] GitHub Actions workflow
+        - [ ] - [ ] Config system (YAML)
+        - [ ] - [ ] Dry-run mode
+        - [ ] - [ ] Multi-account support
+        - [ ] - [ ] Analytics dashboard
+       
+        - [ ] ---
+       
+        - [ ] ## 🤝 Contributing
+       
+        - [ ] This project is built in public. PRs, issues, and ideas are welcome.
+       
+        - [ ] 1. Fork the repo
+        - [ ] 2. Create your branch (`git checkout -b feat/your-feature`)
+        - [ ] 3. Commit your changes (`git commit -m 'feat: add your feature'`)
+        - [ ] 4. Push and open a PR
+       
+        - [ ] ---
+       
+        - [ ] ## 📄 License
+       
+        - [ ] MIT © [nuoyadev](https://github.com/nuoyadev)
+       
+        - [ ] ---
+       
+        - [ ] <div align="center">
 
-              Add your secrets in **Settings → Secrets → Actions**:
-              - `LLM_API_KEY`
-              - - `TWITTER_USERNAME` / `TWITTER_PASSWORD`
-                - - `INSTAGRAM_USERNAME` / `INSTAGRAM_PASSWORD`
-                 
-                  - ---
+        **Lumi** — Post while you build. Zero API cost.
 
-                  ## 🛠️ Tech Stack
+        <img src="mascot.png" alt="Lumi" width="80" />
 
-                  | Layer | Technology |
-                  |---|---|
-                  | 🧠 Content Generation | Claude API / OpenAI GPT-4 |
-                  | 🎭 Browser Automation | Playwright (Chromium, headless) |
-                  | ⏰ Scheduling | GitHub Actions (cron) |
-                  | 🐍 Language | Python 3.10+ |
-                  | 📋 Content Queue | JSON file |
-                  | 🔐 Secrets Management | GitHub Actions Secrets |
-
-                  ---
-
-                  ## 🗺️ Roadmap
-
-                  - [x] Core architecture & repo setup
-                  - [ ] - [ ] `generator.py` — LLM content generation
-                  - [ ] - [ ] `poster_twitter.py` — Twitter/X Playwright poster
-                  - [ ] - [ ] `poster_instagram.py` — Instagram Playwright poster
-                  - [ ] - [ ] `github_scanner.py` — Auto-detect commits for content
-                  - [ ] - [ ] GitHub Actions workflow
-                  - [ ] - [ ] Dry-run / preview mode
-                  - [ ] - [ ] Thread support for Twitter
-                  - [ ] - [ ] Image generation for Instagram (DALL-E / Stable Diffusion)
-                  - [ ] - [ ] Web dashboard to manage queue
-                 
-                  - [ ] ---
-                 
-                  - [ ] ## 💭 Dev Philosophy
-                 
-                  - [ ] ```python
-                  - [ ] class GhostPilot:
-                  - [ ]     def __init__(self):
-                  - [ ]         self.mission = "Post while you build"
-                  - [ ]             self.cost = "$0"
-                  - [ ]                 self.platforms = ["Twitter/X", "Instagram"]
-                  - [ ]                     self.engine = ["Claude", "GPT-4", "Playwright"]
-                 
-                  - [ ]                     def run(self):
-                  - [ ]                         while True:
-                  - [ ]                                 content = self.generate()   # LLM creates the post
-                  - [ ]                                         self.post(content)          # Playwright sends it
-                  - [ ]                                                 self.sleep(hours=24)        # Repeat tomorrow
-                  - [ ]                                             ```
-                 
-                  - [ ]                                         > *"The best builders ship in silence. ghostpilot makes sure the world still hears them."*
-                 
-                  - [ ]                                     ---
-                 
-                  - [ ]                                 ## 📄 License
-                 
-                  - [ ]                             MIT — free to use, fork, and build on.
-                 
-                  - [ ]                         ---
-                 
-                  - [ ]                     <div align="center">
-
-                  Built with 🤖 by [Talon Cutler](https://github.com/nuoyadev) · [@TheTalonAlgo](https://x.com/TheTalonAlgo) · [@taloncutler](https://instagram.com/taloncutler)
-
-                  **⭐ Star this repo if you're tired of posting manually**
-
-                  </div>
+        </div>
