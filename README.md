@@ -2,7 +2,7 @@
 
 ![Lumi Banner](banner.png)
 
-<img src="logo.png" alt="Lumi Logo" width="120" /> # Lumi — AI Social Media Autopilot
+# Lumi — AI Social Media Autopilot
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue?style=flat-square&logo=python)](https://python.org)
@@ -13,7 +13,7 @@
 
 **Post on Twitter/X and Instagram automatically. No API fees. No manual work. Just results.**
 
-Built by [@nuoyadev](https://github.com/nuoyadev) — Because building is more important than posting about building.
+<img src="logo.png" alt="Lumi Logo" width="120" />  Built by [@nuoyadev](https://github.com/nuoyadev) — Because building is more important than posting about building.
 
 </div>
 
