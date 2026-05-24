@@ -2,8 +2,6 @@
 
 <img src="logo.png" alt="Lumi Logo" width="120" />
 
-<img src="wordmark.png" alt="Lumi" width="400" />
-
 ![Lumi Banner](banner.png)
 
 # Lumi — AI Social Media Autopilot
